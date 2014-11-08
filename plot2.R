@@ -2,11 +2,22 @@ plot_2 <- function() {
        ## Computation & design plot on the trend of Global Active Power 
        ## between Thursday (1/2/2007) and Saturday (2/2/2007) 
        
-       ## The function load_cons() read the data from the file "household_power_consumption.txt"       
-       ## and create the dataframe "dd_ok" with the right data of Global Active Power
-       ## between 1/2/2007 and 2/2/2007
-       source("load_data.R")
-       dd_ok <- load_cons()
+       ## Read text file "household_power_consumption.txt" that contains
+       ## measurements of electric power consumption in one household with a 
+       ## one-minute sampling rate over a period of almost 4 years.
+       ## Then create a new data frame dd_ok with only records within the
+       ## interval time: 2007-02-01 to 2007-02-02.
+         
+       ## Dataframe "data_hd" contain all record of the file household_power_consumption.txt
+       data_hd <- read.table("household_power_consumption.txt", header=TRUE, sep=";",na.strings = "?")
+       x <- nrow(data_hd)
+       
+       ## Dataframe "dd_ok" will contain only records within the
+       ## interval time: 2007-02-01 to 2007-02-02
+       startdate <- "1/2/2007"  
+       enddate <- "2/2/2007"        
+       dd_ok <- data.frame()
+       dd_ok <- data_hd[(data_hd$Date == startdate | data_hd$Date == enddate),]
        
        Sys.setlocale("LC_TIME", "English")
 
